@@ -29,7 +29,9 @@ pipeline {
                             apk add git
                             echo "$((`cat VERSION`+1))" > VERSION
                             cat VERSION
-                            git
+                            git add .
+                            git commit -m "VERSION bump"
+                            git push
                         '''
 
                         stash includes: '*', name: 'semver'
