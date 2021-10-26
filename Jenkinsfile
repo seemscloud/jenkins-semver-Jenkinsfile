@@ -1,9 +1,9 @@
 pipeline {
     environment {
-        dockerhub = "theanotherwise/semver"
-        dockerhubCredential = 'dockerhub_theanotherwise'
+        dockerRegistry = "theanotherwise/semver"
+        dockerRegistryCredential = 'dockerhub_theanotherwise'
 
-        githubCredentials = 'github_theanotherwise'
+        repositoryCredentials = 'github_theanotherwise'
         dockerImage = ''
     }
     agent {
@@ -23,7 +23,7 @@ pipeline {
                         }
                     }
                     steps {
-                        git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
+                        git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
                         sh '''
                             apk add --update --no-cache openssh git
@@ -60,7 +60,7 @@ pipeline {
 
                             def content = readFile "VERSION"
 
-                            dockerImage = docker.build("theanotherwise/semver:${content} .")
+                            dockerImage = docker.build dockerRegistry + "${content}"
                         }
                     }
                 }
@@ -89,7 +89,7 @@ pipeline {
                     steps {
                         sh 'ls -lh'
                         script {
-                            docker.withRegistry('', dockerhubCredential ) {
+                            docker.withRegistry('', dockerRegistryCredential ) {
                                 dockerImage.push()
                             }
                         }
