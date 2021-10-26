@@ -54,21 +54,6 @@ pipeline {
                         }
                     }
                 }
-                stage('Test Imagexxx') {
-                    agent {
-                        docker {
-                            image 'docker:20.10.8'
-                            reuseNode true
-                        }
-                    }
-                    steps {
-                        script {
-                            docker.withRegistry('', registryCredential ) {
-                                dockerImage.push()
-                            }
-                        }
-                    }
-                }
             }
         }
     }
