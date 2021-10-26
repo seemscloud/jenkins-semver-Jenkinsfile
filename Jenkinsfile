@@ -1,9 +1,11 @@
 pipeline {
     environment {
-            registry = "theanotherwise/semver"
-            registryCredential = 'dockerhub_theanotherwise'
-            dockerImage = ''
-        }
+        dockerhub = "theanotherwise/semver"
+        dockerhubCredential = 'dockerhub_theanotherwise'
+
+        githubCredentials = 'github_theanotherwise'
+        dockerImage = ''
+    }
     agent {
         docker {
             image 'docker:20.10.8'
@@ -21,7 +23,7 @@ pipeline {
                         }
                     }
                     steps {
-                        git branch: 'main', credentialsId: 'github_theanotherwise', url: 'git@github.com:theanotherwise/semver-docker.git'
+                        git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
                         stash includes: '*', name: 'semver'
                     }
                 }
@@ -63,7 +65,7 @@ pipeline {
                     }
                     steps {
                         script {
-                            docker.withRegistry('', registryCredential ) {
+                            docker.withRegistry('', dockerhubCredential ) {
                                 dockerImage.push()
                             }
                         }
