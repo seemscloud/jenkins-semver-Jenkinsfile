@@ -19,7 +19,7 @@ pipeline {
                     agent {
                         docker {
                             image 'ubuntu:focal'
-                            reuseNode true
+                            reuseNode false
                         }
                     }
                     steps {
