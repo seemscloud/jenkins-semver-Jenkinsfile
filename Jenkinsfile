@@ -54,7 +54,7 @@ pipeline {
 
                         script {
                             dockerImage.inside {
-                                sh 'pip3 list`
+                                sh 'pip3 list'
                             }
                         }
                     }
