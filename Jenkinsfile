@@ -24,8 +24,10 @@ pipeline {
                     }
                     steps {
                         git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
-                        sh ''
-                        sh 'echo $VERSION'
+                        sh '/bin/bash bump.sh'
+                        sh 'git add .'
+                        sh 'git commit -m "VERSION BUMP"'
+                        sh 'git push'
                         stash includes: '*', name: 'semver'
                     }
                 }
