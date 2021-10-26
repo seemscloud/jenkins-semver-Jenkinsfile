@@ -53,11 +53,12 @@ pipeline {
                             reuseNode true
                         }
                     }
+
                     steps {
                         script {
                             unstash 'semver'
 
-                            def content = readFile "var_file.txt"
+                            def content = readFile "VERSION"
 
                             dockerImage = docker.build("theanotherwise/semver:${content}")
                         }
