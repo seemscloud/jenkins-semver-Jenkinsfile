@@ -29,7 +29,9 @@ pipeline {
                     steps {
                         git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
-                        semver_version = readFile "VERSION"
+                        script {
+                            semver_version = readFile "VERSION"
+                        }
 
                         sh '''
                             apk add --update --no-cache openssh git
