@@ -56,7 +56,9 @@ pipeline {
                     steps {
                         script {
                             unstash 'semver'
-                            dockerImage = docker.build("theanotherwise/semver")
+
+                            sh 'VERSION=`cat VERSION`'
+                            dockerImage = docker.build("theanotherwise/semver:${VERSION}")
                         }
                     }
                 }
