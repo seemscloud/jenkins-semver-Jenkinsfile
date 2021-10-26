@@ -12,9 +12,6 @@ pipeline {
     stages {
         stage('Build SemVer'){
             stages {
-                stage(''){
-
-                }
                 stage('Clone') {
                     agent {
                         docker {
