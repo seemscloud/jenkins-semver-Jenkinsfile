@@ -2,7 +2,6 @@ pipeline {
     environment {
             registry = "YourDockerhubAccount/YourRepository"
             registryCredential = 'dockerhub_id'
-            dockerImage = ''
         }
     agent {
         docker {
@@ -29,7 +28,7 @@ pipeline {
                     steps {
                         sh 'ls -lh'
 
-                        dockerImage = docker.build("theanotherwise/semver")
+                        docker.build("theanotherwise/semver")
                     }
                 }
             }
