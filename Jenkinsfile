@@ -30,7 +30,7 @@ pipeline {
                         git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
                         script {
-                            semver_new_tag = readFile "VERSION"
+                            env.semver_new_tag = readFile "VERSION"
                             sh 'printenv'
                         }
 
