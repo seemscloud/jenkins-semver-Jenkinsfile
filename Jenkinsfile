@@ -60,7 +60,7 @@ pipeline {
 
                             def content = readFile "VERSION"
 
-                            dockerImage = docker.build("theanotherwise/semver:${content}")
+                            dockerImage = docker.build("theanotherwise/semver:${content} .")
                         }
                     }
                 }
