@@ -68,7 +68,9 @@ pipeline {
                         }
                     }
                     steps {
-                        dockerImage.push()
+                        script {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
