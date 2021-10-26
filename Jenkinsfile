@@ -11,24 +11,27 @@ pipeline {
     }
     stages {
         stage('Build SemVer'){
-
-
-            agent {
-                docker {
-                    image 'ubuntu:focal'
-                }
-            }
             stages {
+                stage(''){
 
+                }
                 stage('Clone') {
+                    agent {
+                        docker {
+                            image 'ubuntu:focal'
+                        }
+                    }
                     steps {
                         git branch: 'main', credentialsId: '5fa8df1b-d342-4b5c-a2f8-c0c4d4964283', url: 'git@github.com:theanotherwise/semver-docker.git'
                     }
                 }
                 stage('Build') {
+                    agent {
+                        docker {
+                            image 'docker:20.10.8'
+                        }
+                    }
                     steps {
-                        sh 'ls -lh'
-                        
                         script {
                             dockerImage = docker.build("theanotherwise/semver")
                         }
