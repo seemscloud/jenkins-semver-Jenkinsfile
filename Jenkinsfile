@@ -1,6 +1,9 @@
-def semver
-
 pipeline {
+    environment {
+            registry = "YourDockerhubAccount/YourRepository"
+            registryCredential = 'dockerhub_id'
+            dockerImage = ''
+        }
     agent {
         docker {
             image 'docker:20.10.8'
@@ -26,7 +29,7 @@ pipeline {
                     steps {
                         sh 'ls -lh'
 
-                        semver = docker.build("theanotherwise/semver")
+                        dockerImage = docker.build("theanotherwise/semver")
                     }
                 }
             }
