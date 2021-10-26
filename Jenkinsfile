@@ -6,6 +6,7 @@ pipeline {
     }
     stages {
         stage('Build SemVer'){
+            steps{
                 stage('Clone') {
                     agent {
                         docker {
@@ -20,6 +21,7 @@ pipeline {
                         sh 'ls -lh'
                     }
                 }
+            }
         }
         stage('Summary') {
             agent {
