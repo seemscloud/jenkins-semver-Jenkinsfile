@@ -18,15 +18,13 @@ pipeline {
                 stage('Clone') {
                     agent {
                         docker {
-                            image 'ubuntu:focal'
+                            image 'alpine/git:v2.32.0'
                             reuseNode true
                         }
                     }
                     steps {
                         git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
                         sh '''
-                            apt-get update
-                            apt-get install git -y
                             /bin/bash bump.sh
                             git add .
                             git commit -m "VERSION BUMP"
