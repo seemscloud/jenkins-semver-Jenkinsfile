@@ -28,7 +28,6 @@ pipeline {
                         sh '''
                             apk add --update --no-cache openssh git
                             echo "$((`cat VERSION`+1))" > VERSION
-                            cat VERSION
                         '''
 
                         withCredentials([sshUserPrivateKey(credentialsId: 'github_theanotherwise', keyFileVariable: 'SSH_KEY')]) {
@@ -84,6 +83,7 @@ pipeline {
                         }
                     }
                     steps {
+                        sh 'ls -lh'
                         script {
                             docker.withRegistry('', dockerhubCredential ) {
                                 dockerImage.push()
