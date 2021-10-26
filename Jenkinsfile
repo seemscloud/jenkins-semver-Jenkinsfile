@@ -34,7 +34,7 @@ pipeline {
                             git config --global user.name "Version Bump"
                             git add .
                             git commit -m "VERSION bump"
-                            git push
+                            git push --set-upstream origin main
                         '''
 
                         stash includes: '*', name: 'semver'
