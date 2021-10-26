@@ -1,3 +1,6 @@
+def semver_version = ''
+def semver_latest = 'latest'
+
 pipeline {
     environment {
         dockerRegistry = "theanotherwise/semver"
@@ -25,6 +28,8 @@ pipeline {
                     steps {
                         git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
+                        semver_version = readFile "VERSION"
+
                         sh '''
                             apk add --update --no-cache openssh git
                             echo "$((`cat VERSION`+1))" > VERSION
@@ -38,7 +43,7 @@ pipeline {
                                 ssh-keyscan github.com >> ~/.ssh/known_hosts
                                 git remote -vv
                                 git add .
-                                git commit -m "VERSION bump"
+                                git commit -m "VERSION bump ${semver_version}"
                                 GIT_SSH_COMMAND="ssh -i $SSH_KEY" git push --set-upstream origin main
                             '''
                         }
@@ -88,9 +93,8 @@ pipeline {
                         sh 'ls -lh'
                         script {
                             docker.withRegistry('', dockerRegistryCredential ) {
-                                def version = readFile "VERSION"
-                                dockerImage.push(version)
-                                dockerImage.push("latest")
+                                dockerImage.push(semver_version)
+                                dockerImage.push(semver_latest)
                             }
                         }
                     }
