@@ -6,12 +6,6 @@ pipeline {
         githubCredentials = 'github_theanotherwise'
         dockerImage = ''
     }
-    agent {
-        docker {
-            image 'docker:20.10.8'
-            reuseNode true
-        }
-    }
     stages {
         stage('Build SemVer'){
             stages {
@@ -26,10 +20,7 @@ pipeline {
                         git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
                         sh '''
-                            cat /etc/passwd
-                            cat /etc/lsb-release
                             id
-                            whoami
                             apt-get update
                             /bin/bash bump.sh
                             git add .
