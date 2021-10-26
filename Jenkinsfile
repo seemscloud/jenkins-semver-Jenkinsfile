@@ -7,8 +7,8 @@ pipeline {
 
         dockerImage = ''
 
-        semver_version = ''
-        semver_latest = 'latest'
+        SEMVER_VERSION = ''
+        SEMVER_LATEST = 'latest'
     }
     agent {
         docker {
@@ -30,7 +30,7 @@ pipeline {
                         git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
                         script {
-                            semver_version = readFile "VERSION"
+                            SEMVER_VERSION = readFile "VERSION"
                         }
 
                         sh '''
@@ -46,7 +46,7 @@ pipeline {
                                 ssh-keyscan github.com >> ~/.ssh/known_hosts
                                 git remote -vv
                                 git add .
-                                git commit -m "VERSION bump ${semver_version}"
+                                git commit -m "VERSION bump ${SEMVER_VERSION}"
                                 GIT_SSH_COMMAND="ssh -i $SSH_KEY" git push --set-upstream origin main
                             '''
                         }
@@ -96,8 +96,8 @@ pipeline {
                         sh 'ls -lh'
                         script {
                             docker.withRegistry('', dockerRegistryCredential ) {
-                                dockerImage.push(semver_version)
-                                dockerImage.push(semver_latest)
+                                dockerImage.push(SEMVER_VERSION)
+                                dockerImage.push(SEMVER_LATEST)
                             }
                         }
                     }
