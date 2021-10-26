@@ -33,6 +33,7 @@ pipeline {
                             SEMVER_VERSION = readFile "VERSION"
                         }
 
+                        sh 'printenv'
                         sh '''
                             apk add --update --no-cache openssh git
                             echo "$((`cat VERSION`+1))" > VERSION
@@ -54,7 +55,7 @@ pipeline {
                         stash includes: '*', name: 'semver'
                     }
                 }
-                stage('Build') {
+                stage('Build Image') {
                     agent {
                         docker {
                             image 'docker:20.10.8'
@@ -85,7 +86,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Test Imagexxx') {
+                stage('Publish Image') {
                     agent {
                         docker {
                             image 'docker:20.10.8'
@@ -93,7 +94,6 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'ls -lh'
                         script {
                             docker.withRegistry('', dockerRegistryCredential ) {
                                 dockerImage.push(SEMVER_VERSION)
