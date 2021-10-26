@@ -68,7 +68,7 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'ls -lh'
+                        dockerImage.push()
                     }
                 }
             }
