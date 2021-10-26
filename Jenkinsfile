@@ -19,18 +19,15 @@ pipeline {
                     agent {
                         docker {
                             image 'ubuntu:focal'
-                            reuseNode false
+                            reuseNode true
                         }
                     }
                     steps {
                         git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
                         sh '''
-                            apt-get update
-                            /bin/bash bump.sh
-                            git add .
-                            git commit -m "VERSION BUMP"
-                            git push
+                            echo "$((`cat VERSION`+1))" > VERSION
+                            cat VERSION
                         '''
 
                         stash includes: '*', name: 'semver'
