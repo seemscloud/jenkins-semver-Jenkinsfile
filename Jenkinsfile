@@ -29,18 +29,12 @@ pipeline {
                     steps {
                         git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
-                        script {
-                            semver_new_tag = readFile "VERSION"
-                        }
-
-                        sh 'printenv'
-                        sh '''
-                            apk add --update --no-cache openssh git
-                            echo "$((`cat VERSION`+1))" > VERSION
-                        '''
-
+                        semver_new_tag = readFile "VERSION"
+                        
                         withCredentials([sshUserPrivateKey(credentialsId: 'github_theanotherwise', keyFileVariable: 'SSH_KEY')]) {
                             sh '''
+                                apk add --update --no-cache openssh git
+                                echo "$((`cat VERSION`+1))" > VERSION
                                 git config --global user.email "version.bump@seems.cloud"
                                 git config --global user.name "Version Bump"
                                 mkdir -p ~/.ssh
