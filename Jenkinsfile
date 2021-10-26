@@ -26,9 +26,11 @@ pipeline {
                         git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
                         sh '''
-                            apt-get update
                             cat /etc/passwd
                             cat /etc/lsb-release
+                            id
+                            whoami
+                            apt-get update
                             /bin/bash bump.sh
                             git add .
                             git commit -m "VERSION BUMP"
