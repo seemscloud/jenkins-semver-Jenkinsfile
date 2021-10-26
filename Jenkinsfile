@@ -58,9 +58,7 @@ pipeline {
                         script {
                             unstash 'semver'
 
-                            def content = readFile "VERSION"
-
-                            dockerImage = docker.build " . " + dockerRegistry + ":${content}"
+                            dockerImage = docker.build(dockerRegistry)
                         }
                     }
                 }
@@ -90,7 +88,8 @@ pipeline {
                         sh 'ls -lh'
                         script {
                             docker.withRegistry('', dockerRegistryCredential ) {
-                                dockerImage.push()
+                                def version = readFile "VERSION"
+                                dockerImage.push(version)
                             }
                         }
                     }
