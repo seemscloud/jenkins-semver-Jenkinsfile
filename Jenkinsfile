@@ -6,18 +6,22 @@ pipeline {
     }
     stages {
         stage('Build SemVer'){
+            def semver_app
+
+            agent {
+                docker {
+                    image 'ubuntu:focal'
+                }
+            }
             stages {
                 stage('Clone') {
-                    agent {
-                        docker {
-                            image 'ubuntu:focal'
-                        }
-                    }
                     steps {
-                        sh 'cat /etc/lsb-release'
                         git branch: 'main', credentialsId: '5fa8df1b-d342-4b5c-a2f8-c0c4d4964283', url: 'git@github.com:theanotherwise/semver-docker.git'
-
-                        sh 'ls -lh'
+                    }
+                }
+                stage('Build') {
+                    steps {
+                        sh 'xxx'
                     }
                 }
             }
