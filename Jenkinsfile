@@ -7,6 +7,7 @@ pipeline {
     agent {
         docker {
             image 'docker:20.10.8'
+            cleanWs()
         }
     }
     stages {
@@ -30,8 +31,9 @@ pipeline {
                         }
                     }
                     steps {
+                        sh 'ls -lh'
+
                         script {
-                            sh 'ls -lh'
                             unstash 'semver'
                             dockerImage = docker.build("theanotherwise/semver")
                         }
@@ -40,10 +42,12 @@ pipeline {
                 stage('Test Image') {
                     agent {
                         docker {
-                            image 'ubuntu:focal'
+                            image 'docker:20.10.8'
                         }
                     }
                     steps {
+                        sh 'ls -lh'
+
                         script {
                             dockerImage.inside {
                                 pip3 list
