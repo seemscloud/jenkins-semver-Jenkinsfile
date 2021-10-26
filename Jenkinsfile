@@ -18,7 +18,7 @@ pipeline {
                 stage('Clone') {
                     agent {
                         docker {
-                            image 'ubuntu:focal'
+                            image 'alpine:3.13.6'
                             reuseNode true
                         }
                     }
@@ -26,6 +26,7 @@ pipeline {
                         git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
                         sh '''
+                            apk add git
                             echo "$((`cat VERSION`+1))" > VERSION
                             cat VERSION
                             git
