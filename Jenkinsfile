@@ -57,8 +57,9 @@ pipeline {
                         script {
                             unstash 'semver'
 
-                            sh 'VERSION=`cat VERSION`'
-                            dockerImage = docker.build("theanotherwise/semver:${VERSION}")
+                            def content = readFile "var_file.txt"
+
+                            dockerImage = docker.build("theanotherwise/semver:${content}")
                         }
                     }
                 }
