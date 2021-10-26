@@ -40,7 +40,7 @@ pipeline {
                                 git remote -vv
                                 git add .
                                 git commit -m "VERSION bump"
-                                git push --set-upstream origin main
+                                ssh -i $SSH_KEY" git push --set-upstream origin main
                             '''
                         }
 
