@@ -1,7 +1,7 @@
 pipeline {
     environment {
             registry = "theanotherwise/semver"
-            registryCredential = 'dockerhub_theanotherwise'
+            registryCredential = 'theanotherwise'
             dockerImage = ''
         }
     agent {
