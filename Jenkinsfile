@@ -7,6 +7,7 @@ pipeline {
     agent {
         docker {
             image 'docker:20.10.8'
+            reuseNode false
         }
     }
     stages {
@@ -16,6 +17,7 @@ pipeline {
                     agent {
                         docker {
                             image 'ubuntu:focal'
+                            reuseNode false
                         }
                     }
                     steps {
@@ -28,6 +30,7 @@ pipeline {
                     agent {
                         docker {
                             image 'docker:20.10.8'
+                            reuseNode false
                         }
                     }
                     steps {
@@ -43,6 +46,7 @@ pipeline {
                     agent {
                         docker {
                             image 'docker:20.10.8'
+                            reuseNode false
                         }
                     }
                     steps {
@@ -50,7 +54,7 @@ pipeline {
 
                         script {
                             dockerImage.inside {
-                                pip3 list
+                                sh 'pip3 list`
                             }
                         }
                     }
