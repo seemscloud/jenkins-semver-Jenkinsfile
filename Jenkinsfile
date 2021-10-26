@@ -37,6 +37,7 @@ pipeline {
                                 git config --global user.name "Version Bump"
                                 mkdir -p ~/.ssh
                                 ssh-keyscan github.com >> ~/.ssh/known_hosts
+                                git remote -vv
                                 git add .
                                 git commit -m "VERSION bump"
                                 git push --set-upstream origin main
