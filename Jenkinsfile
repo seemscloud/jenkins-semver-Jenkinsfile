@@ -1,7 +1,7 @@
 pipeline {
     environment {
-            registry = "YourDockerhubAccount/YourRepository"
-            registryCredential = 'dockerhub_id'
+            registry = "theanotherwise/semver"
+            registryCredential = 'dockerhub_theanotherwise'
             dockerImage = ''
         }
     agent {
@@ -69,7 +69,9 @@ pipeline {
                     }
                     steps {
                         script {
-                            dockerImage.push()
+                            docker.withRegistry('', registryCredential ) {
+                                dockerImage.push()
+                            }
                         }
                     }
                 }
