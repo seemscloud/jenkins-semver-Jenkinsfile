@@ -29,9 +29,7 @@ pipeline {
                     steps {
                         git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
-                        script {
-                            SEMVER_VERSION = readFile "VERSION"
-                        }
+                        SEMVER_VERSION = readFile "VERSION"
 
                         sh 'printenv'
                         sh '''
