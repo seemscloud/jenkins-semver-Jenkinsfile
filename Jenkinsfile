@@ -14,8 +14,6 @@ pipeline {
                         }
                     }
                     steps {
-                        git branch: 'main', credentialsId: '5fa8df1b-d342-4b5c-a2f8-c0c4d4964283', url: 'git@github.com:theanotherwise/semver-docker.git'
-
                         sh 'ls -lh'
                     }
                 }
