@@ -1,7 +1,7 @@
 pipeline {
     environment {
             registry = "theanotherwise/semver"
-            registryCredential = 'theanotherwise'
+            registryCredential = 'dockerhub_theanotherwise'
             dockerImage = ''
         }
     agent {
@@ -21,7 +21,7 @@ pipeline {
                         }
                     }
                     steps {
-                        git branch: 'main', credentialsId: 'theanotherwise', url: 'git@github.com:theanotherwise/semver-docker.git'
+                        git branch: 'main', credentialsId: 'github_theanotherwise', url: 'git@github.com:theanotherwise/semver-docker.git'
                         stash includes: '*', name: 'semver'
                     }
                 }
