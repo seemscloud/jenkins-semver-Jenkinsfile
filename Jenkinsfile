@@ -21,8 +21,6 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'ls -lh'
-
                         git branch: 'main', credentialsId: 'theanotherwise', url: 'git@github.com:theanotherwise/semver-docker.git'
                         stash includes: '*', name: 'semver'
                     }
@@ -35,8 +33,6 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'ls -lh'
-
                         script {
                             unstash 'semver'
                             dockerImage = docker.build("theanotherwise/semver")
@@ -51,8 +47,6 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'ls -lh'
-
                         script {
                             dockerImage.inside {
                                 sh 'pip3 list'
