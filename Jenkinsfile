@@ -5,39 +5,21 @@ pipeline {
         }
     }
     stages {
-        stage('Create'){
-            parallel {
-                stage('First') {
+        stage('Build SemVer'){
+                stage('Clone') {
                     agent {
                         docker {
-                            image 'alpine:3.13.6'
+                            image 'ubuntu:focal'
                         }
                     }
                     steps {
-                        sh 'touch first'
+                        git branch: 'main',
+                            credentialsId: '5fa8df1b-d342-4b5c-a2f8-c0c4d4964283',
+                            url: 'https://github.com/theanotherwise/semver-docker'
+
+                        sh 'ls -lh'
                     }
                 }
-                stage('Second') {
-                    agent {
-                        docker {
-                            image 'alpine:3.13.5'
-                        }
-                    }
-                    steps {
-                        sh 'touch second'
-                    }
-                }
-                stage('Third') {
-                    agent {
-                        docker {
-                            image 'alpine:3.13.4'
-                        }
-                    }
-                    steps {
-                        sh 'touch third'
-                    }
-                }
-            }
         }
         stage('Summary') {
             agent {
