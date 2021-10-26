@@ -24,7 +24,9 @@ pipeline {
                 }
                 stage('Build') {
                     steps {
-                        sh 'xxx'
+                        sh 'ls -lh'
+
+                        app = docker.build("theanotherwise/semver")
                     }
                 }
             }
