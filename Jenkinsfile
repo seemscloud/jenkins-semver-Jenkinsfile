@@ -7,7 +7,7 @@ pipeline {
 
         dockerImage = ''
 
-        semver_new_tag = '1000'
+        semver_new_tag = ''
         semver_latest_tag = 'latest'
     }
     agent {
@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('Build SemVer'){
             stages {
-                stage('Clone') {
+                stage('Clone Repository') {
                     agent {
                         docker {
                             image 'alpine:3.13.6'
@@ -30,7 +30,7 @@ pipeline {
                         git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
                     }
                 }
-                stage('New Version') {
+                stage('Bump Version') {
                     agent {
                         docker {
                             image 'alpine:3.13.6'
@@ -47,7 +47,6 @@ pipeline {
                                 git config --global user.name "Version Bump"
                                 mkdir -p ~/.ssh
                                 ssh-keyscan github.com >> ~/.ssh/known_hosts
-                                git remote -vv
                                 git add .
                                 git commit -m "VERSION bump -> ${VERSION}"
                                 GIT_SSH_COMMAND="ssh -i $SSH_KEY" git push --set-upstream origin main
