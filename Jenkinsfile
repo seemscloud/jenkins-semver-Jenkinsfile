@@ -90,6 +90,7 @@ pipeline {
                             docker.withRegistry('', dockerRegistryCredential ) {
                                 def version = readFile "VERSION"
                                 dockerImage.push(version)
+                                dockerImage.push("latest")
                             }
                         }
                     }
