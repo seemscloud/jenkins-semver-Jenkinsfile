@@ -6,7 +6,7 @@ pipeline {
     }
     stages {
         stage('Build SemVer'){
-            steps{
+            stages {
                 stage('Clone') {
                     agent {
                         docker {
@@ -14,9 +14,7 @@ pipeline {
                         }
                     }
                     steps {
-                        git branch: 'main',
-                            credentialsId: '5fa8df1b-d342-4b5c-a2f8-c0c4d4964283',
-                            url: 'https://github.com/theanotherwise/semver-docker'
+                        git branch: 'main', credentialsId: '5fa8df1b-d342-4b5c-a2f8-c0c4d4964283', url: 'https://github.com/theanotherwise/semver-docker'
 
                         sh 'ls -lh'
                     }
