@@ -29,6 +29,9 @@ pipeline {
                             apk add git
                             echo "$((`cat VERSION`+1))" > VERSION
                             cat VERSION
+
+                            git config --global user.email "version.bump@seems.cloud"
+                            git config --global user.name "Version Bump"
                             git add .
                             git commit -m "VERSION bump"
                             git push
