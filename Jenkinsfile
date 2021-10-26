@@ -60,7 +60,7 @@ pipeline {
 
                             def content = readFile "VERSION"
 
-                            dockerImage = docker.build dockerRegistry + "${content} ."
+                            dockerImage = docker.build dockerRegistry + ":${content} .xx"
                         }
                     }
                 }
