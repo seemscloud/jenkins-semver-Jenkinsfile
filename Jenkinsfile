@@ -1,4 +1,4 @@
-def semver_app
+def semver
 
 pipeline {
     agent {
@@ -26,7 +26,7 @@ pipeline {
                     steps {
                         sh 'ls -lh'
 
-                        app = docker.build("theanotherwise/semver")
+                        semver = docker.build("theanotherwise/semver")
                     }
                 }
             }
