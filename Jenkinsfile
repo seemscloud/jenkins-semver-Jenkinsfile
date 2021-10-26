@@ -26,7 +26,7 @@ pipeline {
                         git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
                         sh '''
-                            apk add git
+                            add --update --no-cache openssh git
                             echo "$((`cat VERSION`+1))" > VERSION
                             cat VERSION
                         '''
