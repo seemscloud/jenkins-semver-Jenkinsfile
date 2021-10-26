@@ -28,6 +28,7 @@ pipeline {
                         sh '''
                             echo "$((`cat VERSION`+1))" > VERSION
                             cat VERSION
+                            git
                         '''
 
                         stash includes: '*', name: 'semver'
