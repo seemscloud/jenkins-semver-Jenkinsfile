@@ -60,7 +60,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Test Image') {
+                stage('Test Imagexxx') {
                     agent {
                         docker {
                             image 'docker:20.10.8'
