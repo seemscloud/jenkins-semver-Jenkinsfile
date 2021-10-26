@@ -35,6 +35,7 @@ pipeline {
                             sh '''
                                 git config --global user.email "version.bump@seems.cloud"
                                 git config --global user.name "Version Bump"
+                                git remote -vv
                                 git add .
                                 git commit -m "VERSION bump"
                                 git push --set-upstream origin main
