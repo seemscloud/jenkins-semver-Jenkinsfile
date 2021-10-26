@@ -89,8 +89,7 @@ pipeline {
                         script {
                             docker.withRegistry('', dockerRegistryCredential ) {
                                 def version = readFile "VERSION"
-                                dockerImage.push(version)
-                                dockerImage.push("latest")
+                                dockerImage.push(version, "latest")
                             }
                         }
                     }
