@@ -1,13 +1,14 @@
-def semver_version = ''
-def semver_latest = 'latest'
-
 pipeline {
     environment {
         dockerRegistry = "theanotherwise/semver"
         dockerRegistryCredential = 'dockerhub_theanotherwise'
 
         repositoryCredentials = 'github_theanotherwise'
+
         dockerImage = ''
+
+        semver_version = ''
+        semver_latest = 'latest'
     }
     agent {
         docker {
