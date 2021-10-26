@@ -35,7 +35,7 @@ pipeline {
                             sh '''
                                 git config --global user.email "version.bump@seems.cloud"
                                 git config --global user.name "Version Bump"
-                                git remote -vv
+                                ssh-keyscan github.com >> ~/.ssh/known_hosts
                                 git add .
                                 git commit -m "VERSION bump"
                                 git push --set-upstream origin main
