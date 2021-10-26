@@ -7,7 +7,7 @@ pipeline {
 
         dockerImage = ''
 
-        semver_new_tag = ''
+        semver_new_tag = '1000'
         semver_latest_tag = 'latest'
     }
     agent {
@@ -29,8 +29,11 @@ pipeline {
                     steps {
                         git branch: 'main', credentialsId: repositoryCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
 
-                        semver_new_tag = readFile "VERSION"
-                        
+                        script {
+                            semver_new_tag = readFile "VERSION"
+                            sh 'printenv'
+                        }
+
                         withCredentials([sshUserPrivateKey(credentialsId: 'github_theanotherwise', keyFileVariable: 'SSH_KEY')]) {
                             sh '''
                                 apk add --update --no-cache openssh git
