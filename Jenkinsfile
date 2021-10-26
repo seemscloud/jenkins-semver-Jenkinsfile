@@ -58,6 +58,10 @@ pipeline {
                         script {
                             unstash 'semver'
 
+                            sh 'ls -lh'
+
+                            sh 'cat Dockerfile'
+
                             def content = readFile "VERSION"
 
                             dockerImage = docker.build dockerRegistry + "${content}"
