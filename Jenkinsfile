@@ -24,6 +24,7 @@ pipeline {
                     }
                     steps {
                         git branch: 'main', credentialsId: githubCredentials, url: 'git@github.com:theanotherwise/semver-docker.git'
+                        sh 'ls -lha'
                         stash includes: '*', name: 'semver'
                     }
                 }
