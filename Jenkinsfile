@@ -34,8 +34,6 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'ls -lh'
-
                         script {
                             unstash 'semver'
                             dockerImage = docker.build("theanotherwise/semver")
