@@ -37,6 +37,20 @@ pipeline {
                         }
                     }
                 }
+                stage('Test Image') {
+                    agent {
+                        docker {
+                            image 'ubuntu:focal'
+                        }
+                    }
+                    steps {
+                        script {
+                            dockerImage.inside {
+                                pip3 list
+                            }
+                        }
+                    }
+                }
             }
         }
     }
